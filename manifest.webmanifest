@@ -1,0 +1,16 @@
+{
+  "name": "Unicorn Squishy Kingdom",
+  "short_name": "Unicorn Kingdom",
+  "description": "A magical unicorn quest of kindness, values and rainbow runs.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#ffd6ec",
+  "theme_color": "#b388ff",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

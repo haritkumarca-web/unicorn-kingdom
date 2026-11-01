@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>Unicorn Squishy Kingdom</title>
+<meta name="description" content="A magical unicorn quest of kindness, values and rainbow runs.">
+<meta name="theme-color" content="#b388ff">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Unicorn Kingdom">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- HOME -->
+  <section class="screen active" id="s-home">
+    <header class="hero">
+      <div class="hero-uni" id="heroUni"></div>
+      <h1>Unicorn<br><span>Squishy Kingdom</span></h1>
+      <p class="tag">A magical quest of kindness, courage &amp; rainbow runs</p>
+    </header>
+
+    <div class="card">
+      <div class="card-head">
+        <h2>Who's playing?</h2>
+        <button class="chip" id="btnAdd">＋ Add unicorn</button>
+      </div>
+      <div id="playerList" class="player-list"></div>
+    </div>
+
+    <div class="row-btns">
+      <button class="btn ghost" data-go="s-board">🏆 Leaderboard</button>
+      <button class="btn ghost" data-go="s-help">📖 How to play</button>
+    </div>
+    <button class="btn ghost block hidden" id="btnInstall">📲 Install the game</button>
+
+    <p class="golden">💖 <b>Golden rule:</b> Everyone must be kind. Even if you don't win, you're still a Unicorn Star!</p>
+    <button class="icon-btn sound" id="btnSound" aria-label="Sound on or off">🔊</button>
+  </section>
+
+  <!-- READY -->
+  <section class="screen" id="s-ready">
+    <button class="icon-btn back" data-go="s-home" aria-label="Back">←</button>
+    <div class="card center">
+      <div class="big-ava" id="readyAva"></div>
+      <h2 class="ready-title">Ready, <span id="readyName"></span>?</h2>
+      <p class="muted" id="readyLevel"></p>
+      <div class="quest-box">
+        <h3>🗺️ Kindness Quest</h3>
+        <p>Answer <b>10 questions</b> about being a great friend, family member and human (and unicorn!).</p>
+        <p>Get <b>7 or more</b> right to earn points, bonuses, a surprise squishy and unlock <b>🌈 Rainbow Run</b>!</p>
+      </div>
+      <button class="btn block" id="btnStartQuiz">✨ Start the quest!</button>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="screen" id="s-quiz">
+    <div class="quiz-top">
+      <button class="icon-btn" id="btnQuitQuiz" aria-label="Leave quest">✕</button>
+      <div class="quiz-who"><span id="quizAva" class="mini-ava"></span><span id="quizName"></span></div>
+      <div class="streak" id="quizStreak">🔥 0</div>
+    </div>
+    <div class="progress"><div id="quizBar"></div></div>
+    <div class="quiz-count" id="quizCount">Question 1 of 10</div>
+    <div class="card q-card">
+      <div class="q-cat" id="qCat"></div>
+      <h2 class="q-text" id="qText"></h2>
+      <div class="opts" id="qOpts"></div>
+      <div class="explain hidden" id="qExplain"></div>
+      <button class="btn block hidden" id="btnNext">Next ➜</button>
+    </div>
+  </section>
+
+  <!-- RESULT -->
+  <section class="screen" id="s-result">
+    <div class="card center" id="resultCard"></div>
+  </section>
+
+  <!-- GAME -->
+  <section class="screen game" id="s-game">
+    <canvas id="gameCanvas"></canvas>
+    <button class="icon-btn pause" id="btnPause" aria-label="Pause">⏸</button>
+    <div class="rotate-hint" id="rotateHint">📱↻ Turn your phone sideways for a bigger rainbow!</div>
+    <div class="pause-menu hidden" id="pauseMenu">
+      <div class="card center">
+        <h2>⏸ Paused</h2>
+        <p class="muted">Take a breath, little unicorn!</p>
+        <button class="btn block" id="btnResume">▶ Keep running</button>
+        <button class="btn ghost block" id="btnEndRun">🏁 End run</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RUN OVER -->
+  <section class="screen" id="s-over">
+    <div class="card center" id="overCard"></div>
+  </section>
+
+  <!-- LEADERBOARD -->
+  <section class="screen" id="s-board">
+    <button class="icon-btn back" data-go="s-home" aria-label="Back">←</button>
+    <h2 class="page-title">🏆 Kingdom Leaderboard</h2>
+    <div id="boardList"></div>
+  </section>
+
+  <!-- PROFILE -->
+  <section class="screen" id="s-profile">
+    <button class="icon-btn back" data-go="s-home" aria-label="Back">←</button>
+    <div id="profileBody"></div>
+  </section>
+
+  <!-- HELP -->
+  <section class="screen" id="s-help">
+    <button class="icon-btn back" data-go="s-home" aria-label="Back">←</button>
+    <h2 class="page-title">📖 How to play</h2>
+    <div class="card">
+      <ol class="steps">
+        <li>Add a unicorn for every player (up to 6) and give it a name and colour.</li>
+        <li>On your turn, tap <b>Play</b> to start a <b>Kindness Quest</b> of 10 questions.</li>
+        <li>Get <b>7 or more</b> right to win your points and a surprise squishy.</li>
+        <li>Then play <b>🌈 Rainbow Run</b>: tap to jump, tap again in the air to double jump. Collect sparkles and bounce on grumpy clouds!</li>
+        <li>Pass the device to the next player. Keep playing to level up your unicorn!</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>Types of points</h3>
+      <div class="legend">
+        <div><span>⭐</span><b>Stars</b> 10 for every correct answer</div>
+        <div><span>💖</span><b>Kindness Hearts</b> kind-heart questions answered right (5 pts each)</div>
+        <div><span>🌈</span><b>Rainbow Gems</b> every 3 correct in a row (15 pts each)</div>
+        <div><span>👑</span><b>Golden Crown</b> a perfect 10 out of 10 (50 pts)</div>
+        <div><span>✨</span><b>Sparkles</b> collected in Rainbow Run (1 pt each)</div>
+        <div><span>🧸</span><b>Squishies</b> a surprise squishy for each quest you pass. Collect all 16!</div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Unicorn levels</h3>
+      <div class="legend" id="levelLegend"></div>
+    </div>
+  </section>
+</div>
+
+<!-- MODAL -->
+<div class="modal hidden" id="modal">
+  <div class="card modal-card">
+    <h2 id="modalTitle">New unicorn</h2>
+    <label class="lbl" for="inName">Unicorn name</label>
+    <input id="inName" maxlength="14" placeholder="e.g. Sparkle Anya" autocomplete="off">
+    <div class="lbl">Pick a colour</div>
+    <div class="color-grid" id="colorGrid"></div>
+    <div class="modal-btns">
+      <button class="btn ghost" id="btnCancel">Cancel</button>
+      <button class="btn" id="btnSave">Save ✨</button>
+    </div>
+    <button class="link-danger hidden" id="btnDelete">Remove this unicorn</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="game.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
